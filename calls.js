@@ -71,14 +71,11 @@ class Calls
     {
         let func = function(res, reject)
         {
-            if (Array.isArray(res.data))
-                console.log(res.data)
-
-            else 
+            if (!Array.isArray(res.data))
                 Calls.prototype.trataProblemaRequisicao(res, reject)
         }
 
-        return await this.realizarGet(func, 'plantList')
+        return (await this.realizarGet(func, 'plantList')).data
     }
 
     async obterDispositivosPlanta(idPlanta)
@@ -91,14 +88,11 @@ class Calls
 
         let func = function(res, reject)
         {
-            if (res.data && res.data.result == 1)
-                console.log(res.data.obj.datas)
-
-            else 
+            if (!(res.data && res.data.result == 1))
                 Calls.prototype.trataProblemaRequisicao(res, reject)
         }
 
-        return await this.realizarPost(func, 'devicesByPlantList', params)
+        return (await this.realizarPost(func, 'devicesByPlantList', params)).data.obj.datas
     }
 
     async obterInfoDispositivo(idPlanta, numeroSerial, tipo = 'storage')
@@ -112,17 +106,11 @@ class Calls
 
         let func = function(res, reject)
         {
-            if (res.data && res.data.result == 1)
-                console.log(res.data.obj)
-
-            else if (res.status < 200 && res.status > 300)
-                throw new Error("Teste")
-
-            else 
-                Calls.prototype.trataProblemaRequisicao(res, reject)
+            if (!(res.data && res.data.result == 1))
+                Calls.prototype.trataProblemaRequisicao(res, reject)                
         }
 
-        return await this.realizarPost(func, 'deviceInfo', params)
+        return (await this.realizarPost(func, 'deviceInfo', params)).data.obj
     }
 
     async obterCondicaoTempoPlanta(idPlanta)
@@ -130,37 +118,27 @@ class Calls
 
         let func = function(res, reject)
         {
-            if (res.data && res.data.result == 1)
-                console.log(res.data.obj)
-
-            else 
+            if (!(res.data && res.data.result == 1))
                 Calls.prototype.trataProblemaRequisicao(res, reject)
-
         }
 
-        return await this.realizarPost(func, 'weather', undefined, `?plantId=${idPlanta}`)
+        return (await this.realizarPost(func, 'weather', undefined, `?plantId=${idPlanta}`)).data.obj
     }
 
     async obterDadosPlanta(idPlanta)
     {
-
         let func = function(res, reject)
         {
-            if (res.data && res.data.result == 1)
-                console.log(res.data.obj)
-
-            else 
+            if (!(res.data && res.data.result == 1))
                 Calls.prototype.trataProblemaRequisicao(res, reject)
-
         }
 
-        return await this.realizarPost(func, 'plantData', undefined, `?plantId=${idPlanta}`)
+        return (await this.realizarPost(func, 'plantData', undefined, `?plantId=${idPlanta}`)).data.obj
     }
 
     retornaParametrosData(tempo, data, dir)
     {
         let params = {}
-
         switch (tempo)
         {
             case 'dia':
@@ -192,14 +170,11 @@ class Calls
 
         let func = function(res, reject)
         {
-            if (res.data && res.data.result == 1)
-                console.log(res.data)
-
-            else 
+            if (!(res.data && res.data.result == 1))
                 Calls.prototype.trataProblemaRequisicao(res, reject)
         }
 
-        return await this.realizarPost(func, dir, params)
+        return (await this.realizarPost(func, dir, params)).data.obj
     }
 
     async obterDadosEnergiaDispositivo(idPlanta, data, sn = '', param = parametros.parametrosInversor.potencia.pac, tipo = 'max', tempo = 'dia')
@@ -225,14 +200,11 @@ class Calls
 
         let func = function(res, reject)
         {
-            if (res.data && res.data.result == 1)
-                console.log(res.data.obj[0].datas)
-
-            else 
+            if (!(res.data && res.data.result == 1))
                 Calls.prototype.trataProblemaRequisicao(res, reject)
         }
 
-        return await this.realizarPost(func, dir, params)
+        return (await this.realizarPost(func, dir, params)).data.obj[0].datas
     }
 
     async obterInformacaoTotalArmazenamentoPlanta(idPlanta, numeroSerialArmazenamento)
@@ -244,14 +216,11 @@ class Calls
 
         let func = function(res, reject)
         {
-            if (res.data && res.data.result == 1)
-                console.log(res.data)
-
-            else 
+            if (!(res.data && res.data.result == 1))
                 Calls.prototype.trataProblemaRequisicao(res, reject)
         }
 
-        return await this.realizarPost(func, 'storageTotalData', params, `?plantId=${idPlanta}`)
+        return (await this.realizarPost(func, 'storageTotalData', params, `?plantId=${idPlanta}`)).data.obj.datas
     }
 
     async obterInformacaoStatusArmazenamentoPlanta(idPlanta, numeroSerialArmazenamento)
@@ -263,14 +232,11 @@ class Calls
 
         let func = function(res, reject)
         {
-            if (res.data && res.data.result == 1)
-                console.log(res.data)
-
-            else 
+            if (!(res.data && res.data.result == 1))
                 Calls.prototype.trataProblemaRequisicao(res, reject)
         }
 
-        return await this.realizarPost(func, 'storageStatusData', params, `?plantId=${idPlanta}`)
+        return (await this.realizarPost(func, 'storageStatusData', params, `?plantId=${idPlanta}`)).data.obj
     }
 
     async obterInformacaoBateriaArmazenamentoPlanta(idPlanta, numeroSerialArmazenamento)
@@ -282,14 +248,11 @@ class Calls
 
         let func = function(res, reject)
         {
-            if (res.data && res.data.result == 1)
-                console.log(res.data)
-
-            else 
+            if (!(res.data && res.data.result == 1))
                 Calls.prototype.trataProblemaRequisicao(res, reject)
         }
 
-        return await this.realizarPost(func, 'storageBatteryData', params, `?plantId=${idPlanta}`)
+        return (await this.realizarPost(func, 'storageBatteryData', params, `?plantId=${idPlanta}`)).data.obj
     }    
 
     async obterInformacaoEnergiaDiaArmazenamentoPlanta(idPlanta, numeroSerialArmazenamento, data)
@@ -303,14 +266,11 @@ class Calls
 
         let func = function(res, reject)
         {
-            if (res.data && res.data.result == 1)
-                console.log(res.data)
-
-            else 
+            if (!(res.data && res.data.result == 1))
                 Calls.prototype.trataProblemaRequisicao(res, reject)
         }
 
-        return await this.realizarPost(func, 'storageBatteryData', params)
+        return (await this.realizarPost(func, 'storageBatteryData', params)).data.obj
     }    
 }
 module.exports = {Calls}
