@@ -4,7 +4,7 @@
  * Contém os parâmetros que podem ser passados para obter os dados da energia de um dispositivo
  */
 
-const parametrosInversor =
+const parametros =
 {
     potencia :
     {
@@ -49,4 +49,4 @@ const parametrosInversor =
     }
 }
 
-module.exports = {parametrosInversor}
+module.exports = {parametros}
