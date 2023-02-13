@@ -1,3 +1,9 @@
+/**
+ * Obtém objeto traduzido do objeto que contém informações do datalog de um dispositivo
+ * @param {Object} dados objeto original
+ * @returns {Object} objeto com os campos traduzidos
+ */
+
 function obterObjInfoDatalogDispositivo(dados)
 {
     const obj =
@@ -12,6 +18,12 @@ function obterObjInfoDatalogDispositivo(dados)
 
     return obj
 }
+
+/**
+ * Obtém objeto traduzido do objeto que contém informações do armazenamento de um dispositivo
+ * @param {Object} dados objeto original
+ * @returns {Object} objeto com os campos traduzidos
+ */
 
 function obterObjInfoArmazenamentoDispositivo(dados)
 {

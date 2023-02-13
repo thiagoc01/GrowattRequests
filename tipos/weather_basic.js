@@ -1,3 +1,9 @@
+/**
+ * Obtém objeto traduzido do objeto 'basic' do objeto 'HeWeather6' que contém as informações de tempo (weather) de uma planta
+ * @param {Object} dados objeto original
+ * @returns {Object} objeto com os campos traduzidos
+ */
+
 function obterObjTempoBasico(dados)
 {
     const obj =

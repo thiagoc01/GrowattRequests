@@ -1,3 +1,9 @@
+/**
+ * @constant {Object}
+ * 
+ * Contém os parâmetros que podem ser passados para obter os dados da energia de um dispositivo
+ */
+
 const parametrosInversor =
 {
     potencia :

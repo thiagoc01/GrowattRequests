@@ -1,3 +1,9 @@
+/**
+ * Obtém objeto traduzido do objeto que contém informações de um dispositivo
+ * @param {Object} dados objeto original
+ * @returns {Object} objeto com os campos traduzidos
+ */
+
 function obterObjDispositivo(dados)
 {
     const obj =

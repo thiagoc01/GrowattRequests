@@ -1,3 +1,9 @@
+/**
+ * Obtém objeto traduzido do objeto que contém informação do status de um dispositivo de armazenamento
+ * @param {Object} dados objeto original
+ * @returns {Object} objeto com os campos traduzidos
+ */
+
 function obterObjDadosStatusArmazenamento(dados)
 {
     const obj =

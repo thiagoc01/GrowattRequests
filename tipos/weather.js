@@ -1,5 +1,11 @@
 const wData = require('./weather_data.js')
 
+/**
+ * Obtém objeto traduzido do objeto que contém as informações de tempo (weather) de uma planta
+ * @param {Object} dados objeto original
+ * @returns {Object} objeto com os campos traduzidos
+ */
+
 function obterObjTemperatura(dados)
 {
     const obj = 

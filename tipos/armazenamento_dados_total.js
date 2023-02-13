@@ -1,3 +1,9 @@
+/**
+ * Obtém objeto traduzido do objeto que contém informação do total do armazenamento de armazenamento
+ * @param {Object} dados objeto original
+ * @returns {Object} objeto com os campos traduzidos
+ */
+
 function retornaObjDadosTotaisArmazenamento(dados)
 {
     const obj =

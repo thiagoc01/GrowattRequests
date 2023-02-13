@@ -1,3 +1,9 @@
+/**
+ * Obtém objeto traduzido do objeto que contém dados de uma planta
+ * @param {Object} dados objeto original
+ * @returns {Object} objeto com os campos traduzidos
+ */
+
 function obterObjDadosPlanta(dados)
 {
     const obj =

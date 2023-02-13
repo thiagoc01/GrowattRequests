@@ -1,3 +1,10 @@
+/**
+ * @constant {Object}
+ * 
+ * @description Contém todos os diretórios em que o servidor Growatt fornece as informações para o usuário
+ * Qualquer request é feito baseado nessa lista abaixo.
+ */
+
 const links =
 {
     login: 'login',

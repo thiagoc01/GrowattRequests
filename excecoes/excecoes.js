@@ -1,3 +1,10 @@
+/**
+ * @class
+ * 
+ * @classdesc Imprime uma mensagem de erro HTTP e o código dele
+ * @extends Error
+ */
+
 class ExcecaoRequisicaoHTTP extends Error
 {
     constructor(codigo, msg = "Erro na requisição HTTP")
@@ -7,6 +14,13 @@ class ExcecaoRequisicaoHTTP extends Error
         this.name = "ExcecaoRequisicaoHTTP"
     }
 }
+
+/**
+ * @class
+ * 
+ * @classdesc Imprime uma mensagem de erro ao realizar login e uma informação ao usuário
+ * @extends Error
+ */
 
 class ExcecaoAutenticacaoSessao extends Error
 {
@@ -18,6 +32,13 @@ class ExcecaoAutenticacaoSessao extends Error
     }
 }
 
+/**
+ * @class
+ * 
+ * @classdesc Imprime uma mensagem de erro na requisição e uma informação ao usuário
+ * @extends Error
+ */
+
 class ExcecaoRespostaServidor extends Error
 {
     constructor(info, msg = "Ocorreu um erro durante a requisição")
@@ -27,6 +48,13 @@ class ExcecaoRespostaServidor extends Error
         console.log(info)
     }
 }
+
+/**
+ * @class
+ * 
+ * @classdesc Imprime uma mensagem de erro informando que a requisição não foi iniciada e uma informação ao usuário
+ * @extends Error
+ */
 
 class ExcecaoSessaoNaoIniciada extends Error
 {
