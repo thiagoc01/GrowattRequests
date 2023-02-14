@@ -2,7 +2,12 @@
 
 <br>
 
-## API desenvolvida para obter dados de um servidor Growatt para plantas, dispositivos, inversores etc.
+## [README em português](README-pt-BR.md)
+---
+
+<br>
+
+## API developed in order to get data from a Growatt Server for plants, devices, inverters etc.
 
 ---
 
@@ -10,12 +15,12 @@
 
 <br>
 
-### <p style="text-align:center;">Implementação baseada em NodeJS com utilização de Promises</p>
+### <p style="text-align:center;">Implementation based on NodeJS using Promises</p>
 
 
 <br>
 
-# Dependências do projeto
+# Project dependencies
 
 -   ## Axios
 -   ## Url
@@ -26,65 +31,65 @@
 
 <br>
 
-# Como obter?
+# How to get it?
 
-Em um diretório qualquer, digite:
+In any directory, type on terminal:
 
 ``` bash
 $ git clone https://github.com/thiagoc01/GrowattRequests
 ```
 
-Modifique o arquivo index.js para um conteúdo de sua escolha.
+Change the index.js file to some content desired by you.
 
-Dentro do diretório, digite:
+Inside the created directory, type:
 
 ```bash
 $ npm install
 ```
 
-As dependências serão instaladas e você estará pronto para utilizar a API.
+All the dependecies will be installed and you'll be ready to use the API.
 
 <br>
 
-# Utilizando a biblioteca
+# Using the library
 
-Os dois principais arquivos são o calls.js e sessao.js, presentes na pasta api.
+The two main files are calls.js and sessao.js, which are in api folder.
 
-Para utilizar a classe Calls em calls.js, você deve inicializar um objeto da classe Sessao em sessao.js.
+To use the Calls class, you must initialize a Sessao class' object from sessao.js.
 
-Veja o index.js para exemplo.
+See the index.js for example.
 
-**Nota: Você deve executar todas os métodos da classe Calls dentro de uma função async!**
+**Notice: You should execute all methods from Calls class inside a async function!**
 
 <br>
 
-# Arquivo sessao.js
+# File sessao.js
 
-## Classe Sessao
+## Sessao class
 
 ```JS
 class Sessao
 ```
 
-Contém métodos para realizar login e logout, bem como armazenar cookies e informações de cabeçalho para os requests.
+Contains methods to login and logout, as well as storage of cookies and headers' information to the requests.
 
 ## `constructor`
 ---
 <br>
 
-### Construtor da classe
+### Class's constructor
 
-| Parâmetro | Tipo   | Padrão    | Descrição               |
+| Parameter | Type   | Default    | Description             |
 | --------- | ------ | --------- | ----------------------- |
-| usuario   | `string` | Deve ser inserido | Usuário da credencial de acesso |
-| senha   | `string` | Deve ser inserido | Senha da credencial de acesso |
-| servidor   | `string` | `"https://server.growatt.com"` | Servidor que receberá as requisições |
-| headers   | `Object` | `{'User-Agent' : userAgentDefault, Connection: 'keep-alive'}` | Cabeçalho que fará parte das requisições. Este cabeçalho é um conjunto de parâmetros e valores de um cabeçalho HTTP. |
+| usuario   | `string` | Must be given | Access credential user |
+| senha   | `string` | Must be given | Access credential password |
+| servidor   | `string` | `"https://server.growatt.com"` | Server that will receive all the requests |
+| headers   | `Object` | `{'User-Agent' : userAgentDefault, Connection: 'keep-alive'}` | Header that will be part of requests. This header is a set of parameters and values from a standard HTTP header. |
 
-Exemplo de uso:
+Usage example:
 
 ```JS
-let sessao = new sessaoModulo.Sessao('usuario', 'senha')
+let session = new sessionModule.Sessao('usuario', 'senha')
 ```
 
 <br>
@@ -93,20 +98,20 @@ let sessao = new sessaoModulo.Sessao('usuario', 'senha')
 ---
 <br>
 
-### Realiza o login no servidor com base nos atributos configurados nesse objeto.
+### Login in the server with settings based on attributes from this object.
 
 <br>
 
-**Retorno**:
+**Return**:
 
- Tipo     | Descrição               
+ Type     | Description               
  -------- |  -------------------------------|
- `Promise<Object>` | Objeto com resultado da resposta e uma mensagem de sucesso |
+ `Promise<Object>` | Object containing the resulting of the response and a success message |
 
-Exemplo de uso:
+Usage example:
 
 ```JS
-await sessao.realizarLogin();
+await session.realizarLogin();
 ```
 
 <br>
@@ -115,71 +120,71 @@ await sessao.realizarLogin();
 ---
 <br>
 
-### Realiza o logout no servidor.
+### Logout from the server.
 
 <br>
 
-**Retorno**:
+**Return**:
 
- Tipo     | Descrição               
+ Type     | Description               
  -------- |  -------------------------------|
- `Promise<Object>` | Objeto com resultado da resposta e uma mensagem de sucesso |
+ `Promise<Object>` | Object containing the resulting of the response and a success message |
 
-Exemplo de uso:
+Usage example:
 
 ```JS
-await sessao.realizarLogout();
+await session.realizarLogout();
 ```
 
-**Nota: Após o logout, qualquer nova requisição em um objeto da classe Calls que possua esta sessão irá falhar e realizará uma nova autenticação.**
+**Notice: After logout, any new request in a Calls object containing the session that logged out will fail and a new login will be done automatically.**
 
 <br>
 
-# Arquivo calls.js
+# File calls.js
 
-## Classe Calls
+## Calls class
 
 ```JS
 class Calls
 ```
 
-Contém métodos para realizar as requisições ao servidor e obter os dados desejados de todas as plantas e dispositivos.
+Contains methods to make the requests to the server and get data from all plants and devices.
 
 ## `constructor`
 ---
 <br>
 
-### Construtor da classe
+### Class's constructor
 
-| Parâmetro | Tipo   | Padrão    | Descrição               |
+| Parameter | Type   | Default    | Description               |
 | --------- | ------ | --------- | ----------------------- |
-| sessao   | `Sessao` | Deve ser inserido | Objeto da classe `Sessao` que contém uma sessão iniciada e disponível para uso |
+| sessao   | `Sessao` | Must be given | Object of type `Sessao` that contains a initialized session and available to use |
 
-Exemplo de uso:
+Usage example:
 
 ```JS
-let calls = new callsModulo.Calls(sessao)
+let calls = new callsModule.Calls(sessao)
 ```
 
-**Nota: Se a sessão não tiver sido inicializada, a criação do objeto irá jogar uma exceção e encerrar a execução.**
+**Notice: If a session has not been initialized, the object initialization will throw a exception and finish the script execution.**
 
 <br>
 
 ## `async obterListaPlanta()`
 ---
 
-Utilize para obter a lista de objetos que contém todas as plantas administradas por sua conta.
+Use to get the list of objects that contain all plants managed by your account. 
 
-**Retorno**:
+**Return**:
 
- Tipo     | Descrição               
+ Type     | Description               
  -------- |  -------------------------------|
- `Promise<Array<Object>>` | Array contendo objetos com os dados de todas as plantas administradas |
+ `Promise<Array<Object>>` | Array containing objects with data from all managed plants |
 
-Exemplo de uso:
+Usage example:
 
 ```JS
-let listaPlantas = await calls.obterListaPlanta();
+let plantList = await calls.obterListaPlanta();
 ```
 
 <br>
@@ -187,22 +192,22 @@ let listaPlantas = await calls.obterListaPlanta();
 ## `async obterDispositivosPlanta(idPlanta)`
 ---
 
-Utilize para obter a lista de dispositivo que estão na planta fornecida via argumento
+Use to get the list of devices in the given plant by arguments.
 
-| Parâmetro | Tipo   | Padrão    | Descrição               |
+| Parameter | Type   | Default    | Description               |
 | --------- | ------ | --------- | ----------------------- |
-| idPlanta   | `string` | Deve ser inserido | String com o ID da planta a ser verificada |
+| idPlanta   | `string` | Must be given | String containing the plant ID to be verified |
 
-**Retorno**:
+**Return**:
 
  Tipo     | Descrição               
  -------- |  -------------------------------|
- `Promise<Array<Object>>` | Array contendo objetos com os dados de todas os dispositivos na planta fornecida |
+ `Promise<Array<Object>>` | Array containing objects with data from all devices in the given plant by arguments. |
 
-Exemplo de uso:
+Usage example:
 
 ```JS
-let listaDispositivos = await calls.obterDispositivosPlanta('1111111');
+let deviceList = await calls.obterDispositivosPlanta('1111111');
 ```
 
 <br>
@@ -210,24 +215,24 @@ let listaDispositivos = await calls.obterDispositivosPlanta('1111111');
 ## `async obterInfoDispositivo(idPlanta, numeroSerial, tipo = 'storage')`
 ---
 
-Utilize para obter informação do dispositivo.
+Use to get information from a device. 
 
-| Parâmetro | Tipo   | Padrão    | Descrição               |
+| Parameter | Type   | Default    | Description               |
 | --------- | ------ | --------- | ----------------------- |
-| idPlanta   | `string` | Deve ser inserido | String com o ID da planta a ser verificada |
-| numeroSerial | `string`| Deve ser inserido | String com o ID do dispositivo a ser verificado
-| tipo | `string` | `'storage'` | Tipo de informação (datalog ou storage)
+| idPlanta   | `string` | Must be given | String containing the plant ID to be verified |
+| numeroSerial | `string`| Must be given | String containing the device ID to be verified
+| tipo | `string` | `'storage'` | Information type (datalog or storage)
 
-**Retorno**:
+**Return**:
 
  Tipo     | Descrição               
  -------- |  -------------------------------|
- `Promise<Object>` | Objeto com as informações do dispositivo |
+ `Promise<Object>` | Object with device's information |
 
-Exemplo de uso:
+Usage example:
 
 ```JS
-let infoDispositivo = await calls.obterInfoDispositivo('1111111', 'W2E4Q9202', 'datalog');
+let deviceInfo = await calls.obterInfoDispositivo('1111111', 'W2E4Q9202', 'datalog');
 ```
 
 <br>
@@ -235,22 +240,22 @@ let infoDispositivo = await calls.obterInfoDispositivo('1111111', 'W2E4Q9202', '
 ## `async obterCondicaoTempoPlanta(idPlanta)`
 ---
 
-Utilize para obter informação do tempo na planta fornecida por argumento.
+Use to get information about weather on the given plant by arguments.
 
-| Parâmetro | Tipo   | Padrão    | Descrição               |
+| Parameter | Type   | Default    | Description               |
 | --------- | ------ | --------- | ----------------------- |
-| idPlanta   | `string` | Deve ser inserido | String com o ID da planta a ser verificada |
+| idPlanta   | `string` | Must be given | String containing the plant ID to be verified |
 
-**Retorno**:
+**Return**:
 
  Tipo     | Descrição               
  -------- |  -------------------------------|
- `Promise<Object>` | Objeto com as informações do tempo na planta |
+ `Promise<Object>` | Object containing weather information on the given plant |
 
-Exemplo de uso:
+Usage example:
 
 ```JS
-let infoTempoDispositivo = await calls.obterCondicaoTempoPlanta('1111111');
+let weatherInfoDevice = await calls.obterCondicaoTempoPlanta('1111111');
 ```
 
 <br>
@@ -258,22 +263,22 @@ let infoTempoDispositivo = await calls.obterCondicaoTempoPlanta('1111111');
 ## `async obterDadosPlanta(idPlanta)`
 ---
 
-Utilize para obter dados mais específicos da planta dada pelo argumento.
+Use to get more specific data from the given plant by arguments.
 
-| Parâmetro | Tipo   | Padrão    | Descrição               |
+| Parameter | Tipo   | Default    | Description               |
 | --------- | ------ | --------- | ----------------------- |
-| idPlanta   | `string` | Deve ser inserido | String com o ID da planta a ser verificada |
+| idPlanta   | `string` | Must be given | String containing the plant ID to be verified |
 
-**Retorno**:
+**Return**:
 
  Tipo     | Descrição               
  -------- |  -------------------------------|
- `Promise<Object>` | Objeto com dados da planta |
+ `Promise<Object>` | Object containing plant data |
 
-Exemplo de uso:
+Usage example:
 
 ```JS
-let dadosPlanta = await calls.obterDadosPlanta('1111111');
+let plantData = await calls.obterDadosPlanta('1111111');
 ```
 
 <br>
@@ -281,24 +286,24 @@ let dadosPlanta = await calls.obterDadosPlanta('1111111');
 ## `async obterDadosEnergiaInversor(idPlanta, data, tempo = 'dia')`
 ---
 
-Utilize para obter dados de energia (pac) do inversor.
+Use to get energy data (pac) from inverter in a certain date.
 
-| Parâmetro | Tipo   | Padrão    | Descrição               |
+| Parameter | Type   | Default    | Description               |
 | --------- | ------ | --------- | ----------------------- |
-| idPlanta   | `string` | Deve ser inserido | String com o ID da planta a ser verificada |
-| data  | `Date` | Deve ser inserido | Instância de Date contendo a data para se obter as informações |
-| tempo   | `string` | `'dia'` | Período a ser verificado (pode ser dia, mes, ano ou total) |
+| idPlanta   | `string` | Must be given | String containing the plant ID to be verified |
+| data  | `Date` | Must be given | Date instance containing timestamp to get information |
+| tempo   | `string` | `'dia'` | Time range to be verified (can be dia (day), mes (month), ano (year) or total) |
 
-**Retorno**:
+**Return**:
 
- Tipo     | Descrição               
+ Type     | Description               
  -------- |  -------------------------------|
- `Promise<Object>` | Objeto com parâmetro pac contendo uma lista vazia ou com valores |
+ `Promise<Object>` | Object containing the pac parameter with a empty list or list with values |
 
-Exemplo de uso:
+Usage example:
 
 ```JS
-let dadosEnergiaInversor = await calls.obterDadosEnergiaInversor('1111111', new Date(), 'mes');
+let energyDataInverter = await calls.obterDadosEnergiaInversor('1111111', new Date(), 'mes');
 ```
 
 <br>
@@ -306,80 +311,80 @@ let dadosEnergiaInversor = await calls.obterDadosEnergiaInversor('1111111', new 
 ## `async obterDadosEnergiaDispositivo(idPlanta, data, sn = '', param = parametros.parametrosInversor.potencia.pac, tipo = 'max', tempo = 'dia')`
 ---
 
-Utilize para obter dados de energia (pac) do inversor.
+Use to get data from a device, where the data is given by the param argument.
 
-| Parâmetro | Tipo   | Padrão    | Descrição               |
+| Parameter | Type   | Default    | Description               |
 | --------- | ------ | --------- | ----------------------- |
-| idPlanta   | `string` | Deve ser inserido | String com o ID da planta a ser verificada |
-| data  | `Date` | Deve ser inserido | Instância de Date contendo a data para se obter as informações |
-| sn   | `string` | `''` | Número de série do dispositivo |
-| param   | `string` | `'pac'` | Parâmetros a serem buscados (é uma string com os parâmetros unidos por ,). Você pode utilizar o arquivo parametros.js para referência |
-| tipo   | `string` | `'max'` | Tipo do dispositivo |
-| tempo   | `string` | `'dia'` | Período a ser verificado (pode ser dia, mes, ano ou total) |
+| idPlanta   | `string` | Must be given | String containing the plant ID to be verified |
+| data  | `Date` | Must be given | Date instance containing timestamp to get information |
+| sn   | `string` | `''` | Device's serial number |
+| param   | `string` | `'pac'` | Parameters that will be used to get data (it's a string with parameters splitted by ,). You can use the parametros.js file to reference.|
+| tipo   | `string` | `'max'` | Device type |
+| tempo   | `string` | `'dia'` | Time range to be verified (it can be dia (day), mes (month), ano (year) or total) |
 
-**Retorno**:
+**Return**:
 
- Tipo     | Descrição               
+ Type     | Description               
  -------- |  -------------------------------|
- `Promise<Object>` | Objeto com os parâmetros solicitados na lista de param |
+ `Promise<Object>` | Object containing the requested parameters on the list given by param |
 
-Exemplo de uso:
+Usage example:
 
 ```JS
-let dadosEnergiaDispositivo = await calls.obterDadosEnergiaDispositivo('1111111', new Date(), 'E2A33Q2004', 'pac, ppv', 'max', 'dia');
+let energyDataDevice = await calls.obterDadosEnergiaDispositivo('1111111', new Date(), 'E2A33Q2004', 'pac, ppv', 'max', 'dia');
 ```
 
-**Nota: Se o parâmetro for 'dia', será obtido um array contendo os valores a cada 5 minutos do dia.**
+**Notice: If the tempo parameter is 'dia', an array will be given containing the values every 5 minutes of the day.**
 
 <br>
 
-## :warning: A seção abaixo vale somente se você possui um dispositivo de armazenamento
+## :warning: The section below only applies if you have a storage device.
 
 <br>
 
 ## `async infoTotalArmazenamento(idPlanta, numeroSerialArmazenamento)`
 ---
 
-Utilize para obter a informação de armazenamento da planta em todo o período.
+Use to get storage information from a plant in the whole period.
 
-| Parâmetro | Tipo   | Padrão    | Descrição               |
+| Parameter | Type   | Default    | Description               |
 | --------- | ------ | --------- | ----------------------- |
-| idPlanta   | `string` | Deve ser inserido | String com o ID da planta a ser verificada |
-| numeroSerialArmazenamento  | `string` | Deve ser inserido | Contém o número serial do dispositivo de armazenamento |
+| idPlanta   | `string` | Must be given | String containing the plant ID to be verified |
+| numeroSerialArmazenamento  | `string` | Must be given | Contains the storage device's serial number |
 
-**Retorno**:
+**Return**:
 
- Tipo     | Descrição               
+ Type     | Description               
  -------- |  -------------------------------|
- `Promise<Object>` | Objeto com as informações do armazenamento da planta |
+ `Promise<Object>` | Object containing the storage's plant information |
 
-Exemplo de uso:
+Usage example:
 
 ```JS
-let infoTotalArmazenamento = await calls.obterInformacaoTotalArmazenamentoPlanta('1111111', 'E2A33Q2004');
+let totalInfoStorage = await calls.obterInformacaoTotalArmazenamentoPlanta('1111111', 'E2A33Q2004');
 ```
 <br>
 
 ## `async obterInformacaoStatusArmazenamentoPlanta(idPlanta, numeroSerialArmazenamento)`
 ---
 
-Utilize para obter a informação atual de armazenamento da planta.
+Use to get current storage information from a plant.
 
-| Parâmetro | Tipo   | Padrão    | Descrição               |
+| Parameter | Type   | Default    | Descrption               |
 | --------- | ------ | --------- | ----------------------- |
-| idPlanta   | `string` | Deve ser inserido | String com o ID da planta a ser verificada |
-| numeroSerialArmazenamento  | `string` | Deve ser inserido | Contém o número serial do dispositivo de armazenamento |
+| idPlanta   | `string` | Must be given | String containing the plant ID to be verified |
+| numeroSerialArmazenamento  | `string` | Must be given | Contains the storage's device serial number |
 
-**Retorno**:
+**Return**:
 
- Tipo     | Descrição               
+ Type     | Description               
  -------- |  -------------------------------|
- `Promise<Object>` | Objeto com as informações do armazenamento da planta |
+ `Promise<Object>` | Object containing the storage's plant information |
 
-Exemplo de uso:
+Usage example:
 
 ```JS
-let infoAtualArmazenamento = await calls.obterInformacaoStatusArmazenamentoPlanta('1111111', 'E2A33Q2004');
+let currentInfoStorage = await calls.obterInformacaoStatusArmazenamentoPlanta('1111111', 'E2A33Q2004');
 ```
 
 <br>
@@ -387,23 +392,23 @@ let infoAtualArmazenamento = await calls.obterInformacaoStatusArmazenamentoPlant
 ## `async obterInformacaoBateriaArmazenamentoPlanta(idPlanta, numeroSerialArmazenamento)`
 ---
 
-Utilize para obter a informação atual da bateria do armazenamento da planta.
+Use to get current information of a storage battery of a plant.
 
-| Parâmetro | Tipo   | Padrão    | Descrição               |
+| Parameter | Type   | Default    | Description               |
 | --------- | ------ | --------- | ----------------------- |
-| idPlanta   | `string` | Deve ser inserido | String com o ID da planta a ser verificada |
-| numeroSerialArmazenamento  | `string` | Deve ser inserido | Contém o número serial do dispositivo de armazenamento |
+| idPlanta   | `string` | Must be given | String containing the plant ID to be verified |
+| numeroSerialArmazenamento  | `string` | Must be given | Contains the storage device's serial number |
 
-**Retorno**:
+**Return**:
 
- Tipo     | Descrição               
+ Type     | Description               
  -------- |  -------------------------------|
- `Promise<Object>` | Objeto com as informações da bateria do armazenamento da planta |
+ `Promise<Object>` | Object containing the information of a plant's storage battery |
 
-Exemplo de uso:
+Usage example:
 
 ```JS
-let infoBateriaArmazenamento = await calls.obterInformacaoBateriaArmazenamentoPlanta('1111111', 'E2A33Q2004');
+let batteryInfoStorage = await calls.obterInformacaoBateriaArmazenamentoPlanta('1111111', 'E2A33Q2004');
 ```
 
 <br>
@@ -411,105 +416,108 @@ let infoBateriaArmazenamento = await calls.obterInformacaoBateriaArmazenamentoPl
 ## `async obterInformacaoEnergiaDiaArmazenamentoPlanta(idPlanta, numeroSerialArmazenamento, data)`
 ---
 
-Utilize para obter a informação da bateria do armazenamento da planta em uma certa data.
+Use to get information of a storage's battery of a plant in a certain date.
 
-| Parâmetro | Tipo   | Padrão    | Descrição               |
+| Parameter | Type   | Default    | Description               |
 | --------- | ------ | --------- | ----------------------- |
-| idPlanta   | `string` | Deve ser inserido | String com o ID da planta a ser verificada |
-| numeroSerialArmazenamento  | `string` | Deve ser inserido | Contém o número serial do dispositivo de armazenamento |
-| data | `Date` | Deve ser inserido | Data em que se deseja obter informações
+| idPlanta   | `string` | Must be given | String containing the plant ID to be verified |
+| numeroSerialArmazenamento  | `string` | Must be given | Contains the storage device's serial number |
+| data | `Date` | Must be given | Date to use as reference to get information
 
-**Retorno**:
+**Return**:
 
- Tipo     | Descrição               
+ Type     | Description               
  -------- |  -------------------------------|
- `Promise<Object>` | Objeto com as informações da bateria do armazenamento da planta na respectiva data |
+ `Promise<Object>` | Object containing information of a storage's battery of a plant in a certain date |
 
-Exemplo de uso:
+Usage example:
 
 ```JS
-let infoDataBateriaArmazenamento = await calls.obterInformacaoEnergiaDiaArmazenamentoPlanta('1111111', 'E2A33Q2004', new Date());
+let infoBatteryDateStorage = await calls.obterInformacaoEnergiaDiaArmazenamentoPlanta('1111111', 'E2A33Q2004', new Date());
 ```
 
-# Arquivo parametros.js
+# File parametros.js
 
-Esse arquivo contém os parâmetros que podem ser usados no método obterDadosEnergiaDispositivo.
+This file contains parameters which can be used in the obterDadosEnergiaDispositivo method.
 
-Exemplo de uso:
+You can concatenate any parameter that you want to use, separating then with comma.
+
+Usage example:
 
 ```JS
-const parametrosModulo = require('./util/parametros.js');
+const parametrosModule = require('./util/parametros.js');
 
 let param = parametrosModulo.parametros.potencia.pac + ',' + parametrosModulo.parametros.voltagem.mppt1;
 
-let dadosEnergiaDispositivo = await calls.obterDadosEnergiaDispositivo('1111111', new Date(), 'E2A33Q2004', param, 'max', 'dia');
+let energyDataDevice = await calls.obterDadosEnergiaDispositivo('1111111', new Date(), 'E2A33Q2004', param, 'max', 'dia');
 ```
 
-# Arquivos na pasta tipos
+# Files on tipos folder
 
-Os arquivos planta.js, weather.js, armazenamento_dados_total.js, armazenamento_dados_status.js, armazenamento_bateria_dados.js, dados_planta.js, dispositivo_info.js, dispositivo_planta.js e armazenamento_energia_grafico_dia.js podem ser utilizados para obter os objetos com os campos traduzidos. Basta importar o módulo e utilizar a função passando o objeto obtido do servidor.
+The files planta.js, weather.js, armazenamento_dados_total.js, armazenamento_dados_status.js, armazenamento_bateria_dados.js, dados_planta.js, dispositivo_info.js, dispositivo_planta.js e armazenamento_energia_grafico_dia.js can be used to get the object with their respective fields translated to pt-BR. Import the module and use the function passing the object that you receive from the server.
 
-Exemplo de uso:
+Usage example:
 
 ```JS
 
-const plantaTradutor = require('./tipos/planta.js');
+const plantTranslater = require('./tipos/planta.js');
 
-let listaPlantas = await calls.obterListaPlanta();
-let listaTraduzida = []
+let plantList = await calls.obterListaPlanta();
+let translatedList = []
 
-for (let i = 0 ; i < listaPlantas.length ; i++)
-    listaTraduzida.push(plantaTradutor.obterObjPlanta(listaPlantas[i]))
+for (let i = 0 ; i < plantList.length ; i++)
+    translatedList.push(plantTranslater.obterObjPlanta(plantList[i]))
 ```
 
-# Testes
+# Tests
 
-O repositório contém um diretório de testes (testes). Basta rodar:
+This repository contains a directory of tests (testes).
+Run:
 
 ```bash
 $ npm test
 ```
 
-Serão solicitados os dados necessários para conectar-se ao servidor.
+The necessary data will be requested in order to connect to the server.
 
 <br>
 
-# Inicializando a API
+# Initializing the API
 
-Importe ambos os módulos:
-
-```JS
-const sessaoModulo = require("./api/sessao.js");
-const callsModulo = require("./api/calls.js");
-```
-
-Inicialize um objeto da classe Sessao dessa forma:
+Import both modules:
 
 ```JS
-let sessao = new sessaoModulo.Sessao('login', 'senha');
+const sessionModule = require("./api/sessao.js");
+const callsModule = require("./api/calls.js");
 ```
 
-Onde login e senha são suas credenciais. Após isso, chame o método realizarLogin para autenticar-se no servidor. Se tudo ocorrer corretamente, esse objeto está disponível para ser repassado à classe Calls.
+Initialize an object of Sessao class like this:
 
 ```JS
-await sessao.realizarLogin();
-
-let calls = new callsModulo.Calls(sessao);
+let session = new sessionModule.Sessao('login', 'senha');
 ```
 
-A partir daí, você pode chamar todos métodos da classe Calls, com base nos parâmetros documentados.
-
-## Exemplo:
+Where login and senha are your credentials (username and password). Then, call the realizarLogin method to authenticate on the server. If everything is right, the object will be available to be used in a object of Calls class.
 
 ```JS
-let listaPlantas = calls.obterListaPlanta();
+await session.realizarLogin();
+
+let calls = new callsModule.Calls(session);
 ```
 
-Será retornado um Array contendo objetos que possuem os dados de identificação das plantas.
+After that, you can call all methods in the Calls class, based on the parameters documented above.
 
-# Bugs e inconsistências
+## Example:
 
-Os métodos e funções que envolvem obtenção de informação de armazenamento e tempo não foram testadas devido à limitação da conta em minha posse. Qualquer problema detectado por você, por favor reporte como uma <i>issue</i>.
+```JS
+let plantList = calls.obterListaPlanta();
+```
+
+An array containing objects that have identification data of plants will be returned.
+
+# Bugs and inconsistencies
+
+The methods and functions envolving storage and time's information gathering weren't test due to account's limitation on my possession. Any problem seemed by you, please report as an <i>issue</i>.
 
 
 
