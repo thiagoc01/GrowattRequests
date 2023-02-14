@@ -106,7 +106,7 @@ let session = new sessionModule.Sessao('usuario', 'senha')
 
  Type     | Description               
  -------- |  -------------------------------|
- `Promise<Object>` | Object containing the resulting of the response and a success message |
+ `Promise<Object>` | Object containing the result of the response and a success message |
 
 Usage example:
 
@@ -128,7 +128,7 @@ await session.realizarLogin();
 
  Type     | Description               
  -------- |  -------------------------------|
- `Promise<Object>` | Object containing the resulting of the response and a success message |
+ `Promise<Object>` | Object containing the result of the response and a success message |
 
 Usage example:
 
@@ -158,7 +158,7 @@ Contains methods to make the requests to the server and get data from all plants
 
 | Parameter | Type   | Default    | Description               |
 | --------- | ------ | --------- | ----------------------- |
-| sessao   | `Sessao` | Must be given | Object of type `Sessao` that contains a initialized session and available to use |
+| sessao   | `Sessao` | Must be given | Object of type `Sessao` that contains an initialized session and available to use |
 
 Usage example:
 
@@ -452,7 +452,7 @@ let param = parametrosModulo.parametros.potencia.pac + ',' + parametrosModulo.pa
 let energyDataDevice = await calls.obterDadosEnergiaDispositivo('1111111', new Date(), 'E2A33Q2004', param, 'max', 'dia');
 ```
 
-# Files on tipos folder
+# Files in tipos folder
 
 The files planta.js, weather.js, armazenamento_dados_total.js, armazenamento_dados_status.js, armazenamento_bateria_dados.js, dados_planta.js, dispositivo_info.js, dispositivo_planta.js e armazenamento_energia_grafico_dia.js can be used to get the object with their respective fields translated to pt-BR. Import the module and use the function passing the object that you receive from the server.
 
@@ -517,7 +517,7 @@ An array containing objects that have identification data of plants will be retu
 
 # Bugs and inconsistencies
 
-The methods and functions envolving storage and time's information gathering weren't test due to account's limitation on my possession. Any problem seemed by you, please report as an <i>issue</i>.
+The methods and functions envolving storage and time's information gathering have not been test due to account's limitation on my possession. Any problem seen by you, please report as an <i>issue</i>.
 
 
 
