@@ -15,7 +15,12 @@ const parametros =
         potenciaT : 'pact',
         potencia1 : 'ppv1',
         potencia2 : 'ppv2',
-        potencia3 : 'ppv3'
+        potencia3 : 'ppv3',
+        potencia4 : 'ppv4',
+        potencia5 : 'ppv5',
+        potencia6 : 'ppv6',
+        potencia7 : 'ppv7',
+        potencia8 : 'ppv8'
     },
 
     voltagem :
