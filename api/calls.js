@@ -167,7 +167,7 @@ class Calls
 
         let func = function(res)
         {
-            if (!(res.data && res.data.result == 1))
+            if (!(res.data))
             {
                 Calls.prototype.trataProblemaRequisicao(res);
                 return false;
@@ -176,7 +176,13 @@ class Calls
             return true;
         }
 
-        return (await this.realizarPost(func, 'devicesByPlantList', params)).data.obj.datas
+
+        let res = await this.realizarPost(func, 'devicesByPlantList', params)
+        
+        if (res.data.hasOwnProperty('obj'))
+            return res.data.obj.datas
+
+        return res
     }
 
     /**

@@ -3,9 +3,11 @@
 /*
     Exemplo de uso da API.
     Esse script obtém os dados de energia do dia com os parâmetros PAC e POWER 1 a 4.
-    Salva em um arquivo .tsv cujo nome é o dia em questão.
-    Os arquivos ficam numa pasta com nome dados.
-    O ID da planta e o número serial do dispositivo são conhecidos.
+    Cria uma pasta dados, que terá como subpastas as plantas administradas.
+    Para cada planta com um dispositivo ao menos, subpastas dentro das subpastas anteriores
+    serão criadas, as quais possuem como nome o número de série do dispositivo.
+    Nessas últimas descritas, serão salvos os arquivos .tsv contendo os dados solicitados.
+    Os nomes dos arquivos são a data em questão.
 */
 
 const sessaoModulo = require('./api/sessao.js')
@@ -39,14 +41,14 @@ function criarDiretorio(dir = 'dados')
 function criaArquivoTSV(dir, params, nome = new Date().toISOString().substr(0, 10))
 {
     /* Altera o formato da data para dd-MM-aaaa */
-
+    
     const dataDiaMesAno = `${nome.substr(8, 2) + "-" + nome.substr(5, 2) + "-" + nome.substr(0, 4)}`;
     const dadosTSV = 'Data\t' + params.split(',').join('\t') + '\n';
-
+    
     try
     {
         fsModulo.writeFileSync(dir + '/' + dataDiaMesAno + '.tsv', dadosTSV);
-        console.log('Arquivo ' + dataDiaMesAno + '.tsv' + ' criado com sucesso.');
+        console.log('Arquivo ' + dir + '/' + dataDiaMesAno + '.tsv' + ' criado com sucesso.');
     }
 
     catch (e)
@@ -119,17 +121,51 @@ function salvaDadosDiaArquivo(dadosEnergiaDispositivo, listaParams, caminho)
     }
 }
 
+/*
+    Salva informações de energia solicitadas pelo argumento params
+    para todos os dispositivos da planta dada no argumento.
+*/
+
+async function salvaInformacoesDispositivosPlanta(planta, params, calls)
+{
+    const listaDispositivos = await calls.obterDispositivosPlanta(planta.id);
+
+    if (listaDispositivos.hasOwnProperty('data'))
+        return listaDispositivos;
+
+    /* Cria uma pasta dentro de dados com o nome da planta, onde conterá pastas com nome dos dispositivos e os arquivos .tsv */
+
+    const dir = 'dados/' + planta.plantName;
+    let nomeArquivo = new Date().toISOString().substr(0, 10);
+    nomeArquivo = `${nomeArquivo.substr(8, 2) + "-" + nomeArquivo.substr(5, 2) + "-" + nomeArquivo.substr(0, 4)}`
+
+    criarDiretorio(dir); // Cria a pasta da planta
+
+    const listaParams = params.split(',');
+
+    for (let i = 0 ; i < listaDispositivos.length ; i++)
+    {
+        const subDir = dir + '/' + listaDispositivos[i].sn; // Cria a pasta do dispositivo (o nome é o número de série)
+        const caminho = subDir + '/' + nomeArquivo; // Arquivo com o nome sendo o dia solicitado que ficará dentro da pasta anterior
+
+        criarDiretorio(subDir);
+        criaArquivoTSV(subDir, params);
+
+        let dadosEnergiaDispositivo = await calls.obterDadosEnergiaDispositivo(planta.id, new Date(), listaDispositivos[i].sn, params, 'max', 'dia');
+    
+        dadosEnergiaDispositivo = removeValoresNulos(dadosEnergiaDispositivo, listaParams);
+
+        salvaDadosDiaArquivo(dadosEnergiaDispositivo, listaParams, caminho);
+    }
+
+    return listaDispositivos
+}
+
 async function main()
 {
     let sessao = new sessaoModulo.Sessao(usuario, senha)
 
     const dir = 'dados';
-
-    let nomeArquivo = new Date().toISOString().substr(0, 10);
-
-    nomeArquivo = `${nomeArquivo.substr(8, 2) + "-" + nomeArquivo.substr(5, 2) + "-" + nomeArquivo.substr(0, 4)}`
-
-    const caminho = dir + '/' + nomeArquivo;
 
     const params = parametrosModulo.parametros.potencia.pac +
                     ',' +
@@ -141,20 +177,19 @@ async function main()
                     ',' +
                     parametrosModulo.parametros.potencia.potencia4;
 
-    const listaParams = params.split(',');
-
     await sessao.realizarLogin()
 
-    let calls = new callsModulo.Calls(sessao)
+    const calls = new callsModulo.Calls(sessao)
+
+    const listaPlantas = await calls.obterListaPlanta();
 
     criarDiretorio(dir);
-    criaArquivoTSV(dir, params)
 
-    let dadosEnergiaDispositivo = await calls.obterDadosEnergiaDispositivo('1661322', new Date(), 'QAJ9CH6029', params, 'max', 'dia');
-    
-    dadosEnergiaDispositivo = removeValoresNulos(dadosEnergiaDispositivo, listaParams);
+    /* Executa a obtenção de informações e criações dos arquivos de forma paralela */
 
-    salvaDadosDiaArquivo(dadosEnergiaDispositivo, listaParams, caminho);
+    const requests = listaPlantas.map(e => salvaInformacoesDispositivosPlanta(e, params, calls))
+
+    const fim = await Promise.all(requests)
 
     await sessao.realizarLogout()
 }
